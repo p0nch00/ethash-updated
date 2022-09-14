@@ -28,6 +28,9 @@ import "C"
 import (
 	"errors"
 	"fmt"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/ethereum/go-ethereum/log"
 	"io/ioutil"
 	"math/big"
 	"math/rand"
@@ -39,10 +42,6 @@ import (
 	"sync/atomic"
 	"time"
 	"unsafe"
-
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/ethereum/go-ethereum/log"
 )
 
 var (
@@ -433,7 +432,8 @@ func GetSeedHash(blockNum uint64) ([]byte, error) {
 
 func makeSeedHash(epoch uint64) (sh common.Hash) {
 	for ; epoch > 0; epoch-- {
-		sh = crypto.Sha3Hash(sh[:])
+		//return Keccak256Hash(data...)
+		sh = crypto.Keccak256Hash(sh[:])
 	}
 	return sh
 }
