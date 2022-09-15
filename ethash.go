@@ -433,7 +433,9 @@ func GetSeedHash(blockNum uint64) ([]byte, error) {
 func makeSeedHash(epoch uint64) (sh common.Hash) {
 	for ; epoch > 0; epoch-- {
 		//return Keccak256Hash(data...)
-		sh = crypto.Keccak256Hash(sh[:])
+		sh = Sha3Hash(sh[:])
 	}
 	return sh
 }
+//fix for goalng being goland
+func Sha3Hash(data ...[]byte) common.Hash { return crypto.Keccak256Hash(data...) }
